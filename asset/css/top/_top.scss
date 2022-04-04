@@ -1,0 +1,67 @@
+@charset "utf-8";
+@import "compass/css3/";
+
+// #stage {
+//   &.first {
+//     opacity: 0;
+//     height: 0;
+//     visibility: hidden;
+//     &.show {
+//       opacity: 1;
+//       height: auto;
+//       visibility: inherit;
+//     }
+//   }
+// }
+
+.top {
+  // .header {
+  //   @include bkp(pc) {
+  //     filter: invert(1);
+  //     background-color: transparent;
+  //     border-bottom: 0;
+  //     transition: 0s;
+  //     &.on {
+  //       filter: none;
+  //       background-color: #fff;
+  //       border-bottom: 1px solid #efefef;
+  //     }
+  //   }
+  // }
+  .firstview {
+    position: relative;
+    width: 100%;
+    .mv {
+      background-image: url(../../img/top/mv-bg@2x.png);
+      background-size: auto 100%;
+      background-position: center 0;
+      background-repeat: repeat-x;
+      @include bkp(pc) {
+        height: 100vh;
+      }
+      @include bkp(sp) {
+        height: 160vw;
+      }
+    }
+  }
+
+  // 以下、TOPのテキスト周りのmixin
+  // @mixin phraseTxt($font-size: 4.4rem) {
+  //   font-size: $font-size;
+  //   font-weight: 400;
+  //   line-height: 1.4;
+  //   letter-spacing: 0.05em;
+  // }
+
+  // @mixin topTxt() {
+  //   line-height: 2;
+  //   letter-spacing: 0.05em;
+  //   @include bkp(pc) {
+  //     font-size: 1.6rem;
+  //   }
+  //   @include bkp(sp) {
+  //     font-size: 1.4rem;
+  //   }
+  // }
+  // 以上、TOPのテキスト周りのmixin
+}

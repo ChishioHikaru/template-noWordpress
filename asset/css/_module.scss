@@ -1,0 +1,460 @@
+@charset "utf-8";
+@import "compass/css3/";
+
+// 基本フォント Noto Sans JP
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,500,700&display=swap&subset=japanese);
+@import url(https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&display=swap);
+
+// @font-face {
+//   font-family: "avenir";
+//   font-style: normal;
+//   src: url(../../font/Avenir.ttc) format("truetype");
+//   font-display: swap;
+// }
+
+$breakpoints: (
+  "sp": "screen and (max-width: 896px)",
+  "tab": "screen and (min-width: 1024px)",
+  "pc": "screen and (min-width: 897px)",
+) !default;
+
+@mixin bkp($breakpoint: sp) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+@mixin bkp($breakpoint: tab) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+@mixin bkp($breakpoint: pc) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+@mixin lineHeightCrop($line-height) {
+  &::before {
+    display: block;
+    width: 0;
+    height: 0;
+    margin-top: calc((1 - #{$line-height}) * 0.5em);
+    content: "";
+  }
+  &::after {
+    display: block;
+    width: 0;
+    height: 0;
+    margin-bottom: calc((1 - #{$line-height}) * 0.5em);
+    content: "";
+  }
+}
+
+// @include lineHeightCrop(2);
+// @include lineHeightCrop(1.5);
+
+// @mixin mainheading($font-size:2rem ,$color: #000) {
+//   font-size: $font-size;
+//   color: $color;
+// }
+// @include mainheading($font-size:1.3rem ,$color: #929191);
+
+// keyframeベース
+// @keyframes animationName {
+// 	0% {}
+// 	50% {}
+// 	100% {}
+// }
+.mincho {
+  font-family: "Noto Serif JP", serif;
+  font-weight: 500;
+}
+.light {
+  font-weight: 300;
+}
+.regular {
+  font-weight: 400;
+}
+.medium {
+  font-weight: 500;
+}
+.bold {
+  font-weight: 700;
+}
+.en {
+  font-family: "Trajan Pro", sans-serif;
+}
+
+.tel {
+  &.no_link {
+    pointer-events: none;
+  }
+}
+
+.flx {
+  display: flex;
+  &.reverse {
+    flex-direction: row-reverse;
+  }
+  &.jfc_sb {
+    justify-content: space-between;
+  }
+  &.jfc_c {
+    justify-content: center;
+  }
+  &.aic {
+    align-items: center;
+  }
+  &.clm {
+    flex-direction: column;
+    & > * {
+      min-height: 0%;
+    }
+  }
+}
+.ablt {
+  position: absolute;
+}
+
+//基本本文
+.lead {
+  font-size: 1.6rem;
+  line-height: 1.75;
+  letter-spacing: 0.05em;
+  @include lineHeightCrop(1.75);
+  @include bkp(sp) {
+    font-size: 1.4rem;
+    text-align: justify;
+    text-justify: inter-ideograph;
+  }
+}
+
+// .base_sub_head {
+//   font-size: 1.4rem;
+//   font-weight: 700;
+//   letter-spacing: 0.1em;
+//   text-transform: uppercase;
+//   position: relative;
+//   &.vertical {
+//     @include bkp(pc) {
+//       padding-left: 45px;
+//     }
+//     @include bkp(sp) {
+//       padding-bottom: 24px;
+//     }
+//     &::after {
+//       content: "";
+//       background-color: $baseblue;
+//       position: absolute;
+//       left: 0;
+//       @include bkp(pc) {
+//         top: 0;
+//         width: 4px;
+//         height: 20px;
+//       }
+//       @include bkp(sp) {
+//         bottom: 0;
+//         width: 20px;
+//         height: 2px;
+//       }
+//     }
+//   }
+// }
+
+//自動文字詰め
+//font-feature-settings: "palt";
+
+//縦書き（SPで解除）
+.vertical {
+  -webkit-writing-mode: vertical-rl;
+  -ms-writing-mode: tb-rl;
+  -o-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;
+  @include bkp(sp) {
+    writing-mode: horizontal-tb;
+    -webkit-writing-mode: horizontal-tb;
+    -ms-writing-mode: horizontal-tb;
+  }
+}
+
+// ラインと矢印のあるリンクボタン
+@mixin commonbtn($color: $baseblue, $padding: 20px 20px, $ltsp: 0.08em) {
+  position: relative;
+  display: block;
+  padding: $padding;
+  font-size: 1.4rem;
+  font-weight: bold;
+  letter-spacing: $ltsp;
+  color: $color;
+  border: 2px solid $baseblue;
+  border-left: 10px solid $baseblue;
+  @include bkp(pc) {
+    width: 310px;
+    &:hover {
+      background-color: $baseblue;
+      color: #fff;
+    }
+  }
+  @include bkp(sp) {
+    width: 84%;
+  }
+  &::before {
+    content: "";
+    height: 1px;
+    width: 30px;
+    background-color: $baseblue;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transition: 0.3s;
+  }
+  &::after {
+    content: "";
+    height: 1px;
+    background-color: $baseblue;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transition: 0.3s;
+    width: 10px;
+    transform: rotate(45deg) translateY(-4px);
+  }
+  &:hover::before,
+  &:hover::after {
+    background-color: #fff;
+    right: 15px;
+  }
+}
+
+// TOPページの丸いリンク
+@mixin topLink($pos: relative) {
+  position: $pos;
+  display: block;
+  width: 200px;
+  height: 200px;
+  background-color: rgba($color: #e5e5e5, $alpha: 0.8);
+  background-image: url(../../img/common/icon_black_arrow.png);
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  @include bkp(pc) {
+    background-position: center center;
+    background-size: 22px;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: #000;
+      opacity: 0;
+      transition: 0.35s ease;
+    }
+    &:hover {
+      &:before {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        transition: 0.35s 0.35s ease;
+      }
+      .txt {
+        transform: translate(-50%, -50%);
+        transition: 0.35s 0s ease;
+      }
+    }
+  }
+  @include bkp(sp) {
+    background-position: 75% center;
+    background-size: 16px;
+    box-shadow: 4px 4px 10px rgba($color: #e5e5e5, $alpha: 0.3);
+  }
+  .txt {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 5px 12px;
+    background-color: #000;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #fff;
+    transition: 0.35s 0.35s ease;
+    @include bkp(pc) {
+      transform: translate(-150%, -50%);
+      font-size: 1.4rem;
+    }
+    @include bkp(sp) {
+      transform: translate(-75%, -50%);
+      font-size: 1.6rem;
+    }
+  }
+}
+
+@mixin head_pagetitle($pos: relative) {
+  position: $pos;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-family: "avenir";
+  color: #1e2128;
+  text-transform: uppercase;
+  @include bkp(pc) {
+    padding-bottom: 38px;
+    font-size: 1.4rem;
+    top: 18px;
+  }
+  @include bkp(sp) {
+    position: absolute;
+    top: 0;
+    left: -8%;
+    transform-origin: bottom;
+    padding-bottom: 18px;
+    font-size: 1.2rem;
+  }
+  &.rotate {
+    transform: rotate(90deg);
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    @include bkp(pc) {
+      width: 20px;
+      height: 4px;
+    }
+    @include bkp(sp) {
+      width: 20px;
+      height: 2px;
+    }
+  }
+}
+
+// 下層ページ
+@mixin headerPadding() {
+  @include bkp(pc) {
+    padding-top: 10vw;
+  }
+  @include bkp(sp) {
+    padding-top: 21vw;
+  }
+}
+
+@mixin pageTitle() {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  z-index: 2;
+  @include bkp(pc) {
+    margin-left: 12.8vw;
+  }
+  @include bkp(sp) {
+    position: relative;
+    padding-left: 16.5%;
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+}
+
+@mixin pageTitleBlock() {
+  position: relative;
+  z-index: 2;
+  transform: scale(0, 1);
+  transform-origin: left top;
+  opacity: 0;
+  transition: 0.5s ease;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: right top;
+    transform: scale(1, 1);
+    transition: 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  }
+  &:before {
+    z-index: 2;
+    background-color: #1e2128;
+    transition-delay: 0.5s;
+  }
+  &:after {
+    z-index: 1;
+    background-color: #fff;
+    transition-delay: 0.75s;
+  }
+  &.on {
+    transform: scale(1, 1);
+    opacity: 1;
+    &:before,
+    &:after {
+      transform: scale(0, 1);
+    }
+  }
+  @include bkp(pc) {
+    margin-left: 42px;
+  }
+  @include bkp(sp) {
+    margin-left: 20px;
+  }
+}
+
+@mixin mvthumb() {
+  height: 40.2vw;
+  margin: -56px 2.5vw 0;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 110% 110%;
+  opacity: 0;
+  transition: background-size 1.5s cubic-bezier(0.785, 0.135, 0.15, 0.86),
+    opacity 1s ease-out;
+  &.on {
+    opacity: 1;
+    background-size: 100% 100%;
+  }
+  @include bkp(sp) {
+    height: 75vw;
+    margin: -28px 0 0;
+    background-size: auto 100%;
+    &.on {
+      background-size: auto 100%;
+    }
+  }
+}
+
+@mixin leadHead() {
+  @include bkp(pc) {
+    font-size: 4.4rem;
+    font-weight: 500;
+    text-align: center;
+  }
+  @include bkp(sp) {
+    font-size: 3.4rem;
+    line-height: 1.4;
+  }
+}
+
+@mixin leadTxt() {
+  @include bkp(pc) {
+    font-size: 1.6rem;
+    line-height: 2;
+    text-align: center;
+  }
+  @include bkp(sp) {
+    font-size: 1.4rem;
+    line-height: 1.75;
+  }
+}
+
+@mixin basetxt($font-size: 1.6rem, $spfont-size: 1.4rem, $lh: 2, $ls: 0.05em) {
+  font-size: $font-size;
+  font-weight: 500;
+  line-height: $lh;
+  letter-spacing: $ls;
+  @include bkp(sp) {
+    font-size: $spfont-size;
+  }
+}
